@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import logo from '../../assets/Group 8.svg'
+import logo from '../../assets/logo.svg'
 
 
 export default function LoginPage() {
@@ -12,7 +12,7 @@ export default function LoginPage() {
                 <input type="password" placeholder="senha" />
                 <button>Entrar</button>
             </CustomForm>
-            <Link>Não tem uma conta? Cadastre-se!</Link>
+            <Link to='/cadastro' >Não tem uma conta? Cadastre-se!</Link>
         </Login>
     );
 }

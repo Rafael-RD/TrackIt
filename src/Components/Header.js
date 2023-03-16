@@ -8,7 +8,7 @@ export default function Header(){
     const userInfo=useContext(UserInfo);
 
     return(
-        <HeaderContainer>
+        <HeaderContainer data-test="header" >
             <Link to='/' >TrackIt</Link>
             <img src={userInfo.image} alt="Perfil" />
         </HeaderContainer>

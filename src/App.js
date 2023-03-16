@@ -1,18 +1,34 @@
+import { createContext, useEffect, useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Header from "./Components/Header";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import SignupPage from "./pages/SignupPage/SignupPage";
 
+
+export const UserInfo = createContext();
+export const SetUserInfo = createContext();
+
+
 export default function App() {
+  const [user, setUser] = useState({});
+
+  useEffect(()=>{
+    console.log(user);
+  },[user]);
+  
+
   return (
     <BrowserRouter>
-      <Routes>
-        <Route exact path="/" element={<LoginPage />} />
-        <Route exact path="/cadastro" element={<SignupPage />} />
-        <Route exact path="/habitos" element={null} />
-        <Route exact path="/hoje" element={null} />
-        <Route exact path="/historico" element={null} />
-      </Routes>
+      <UserInfo.Provider value={user} >
+        <SetUserInfo.Provider value={setUser} >
+          <Routes>
+            <Route exact path="/" element={<LoginPage />} />
+            <Route exact path="/cadastro" element={<SignupPage />} />
+            <Route exact path="/habitos" element={null} />
+            <Route exact path="/hoje" element={null} />
+            <Route exact path="/historico" element={null} />
+          </Routes>
+        </SetUserInfo.Provider>
+      </UserInfo.Provider>
     </BrowserRouter>
   );
 }

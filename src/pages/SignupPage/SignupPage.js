@@ -1,17 +1,71 @@
-import { Link } from "react-router-dom";
+import axios from "axios";
+import { useState } from "react";
+import { ThreeDots } from "react-loader-spinner";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import logo from "../../assets/logo.svg"
 
 export default function SignupPage(){
+    const [loading, setLoading]=useState(false);
+    const [form, setForm]=useState({email:'', password:'', name: '', image: ''});
+    const navigate=useNavigate();
+    
+    function botaoCadastrar(){
+        if(loading===false){
+            return 'Cadastrar';
+        }else{
+            return (<ThreeDots
+            height="80" 
+            width="80" 
+            radius="9"
+            color="#FFFFFF" 
+            ariaLabel="three-dots-loading"
+            wrapperStyle={{}}
+            wrapperClassName=""
+            visible={true}
+            />)
+        }
+    }
+
+    function changeHandler(e){
+        const {name, value}=e.target;
+        setForm({...form, [name]: value});
+    }
+
+    function submitHandler(e){
+        e.preventDefault();
+        setLoading(true);
+        const url='https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up';
+        const body={
+            email: form.email,
+            name: form.name,
+            image: form.image,
+            password: form.password
+        }
+        axios.post(url, body)
+        .then(resp=>{
+            console.log('deu ');
+            console.log(resp);
+            navigate('/')
+        })
+        .catch(({response})=>{
+            console.log('deu ruim');
+            console.log(response);
+            alert(response.data.message);
+            setForm({...form, password: ''});
+            setLoading(false);
+        })
+    }
+
     return (
         <Signup>
             <img src={logo} alt="TrackIt logo" />
-            <CustomForm>
-                <input type="email" placeholder="email" />
-                <input type="password" placeholder="senha" />
-                <input type="text" placeholder="nome" />
-                <input type="url" placeholder="foto" />
-                <button>Entrar</button>
+            <CustomForm onSubmit={submitHandler}>
+                <input disabled={loading} onChange={changeHandler} value={form.email} name='email' type="email" placeholder="email" required />
+                <input disabled={loading} onChange={changeHandler} value={form.password} name='password' type="password" placeholder="senha" required />
+                <input disabled={loading} onChange={changeHandler} value={form.name} name='name' type="text" placeholder="nome" required />
+                <input disabled={loading} onChange={changeHandler} value={form.image} name='image' type="url" placeholder="foto" required />
+                <button disabled={loading} >{botaoCadastrar()}</button>
             </CustomForm>
             <Link to='/' >Já tem uma conta? Faça login!</Link>
         </Signup>
@@ -58,6 +112,10 @@ const CustomForm = styled.form`
     input::placeholder{
         color: #CBCBCB;
     }
+    input:disabled{
+        color: #AFAFAF;
+        background: #F2F2F2;
+    }
     
     button{
         width: 100%;
@@ -68,5 +126,11 @@ const CustomForm = styled.form`
         border: none;
         color: #FFFFFF;
         font-size: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    button:disabled{
+        opacity: 0.7;
     }
 `

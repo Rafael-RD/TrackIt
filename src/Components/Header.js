@@ -1,11 +1,16 @@
+import { useContext } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { UserInfo } from "../App";
+
 
 export default function Header(){
+    const userInfo=useContext(UserInfo);
+
     return(
         <HeaderContainer>
             <Link to='/' >TrackIt</Link>
-            <img src="https://i.imgur.com/Iexr4CB.jpg" alt="Perfil" />
+            <img src={userInfo.image} alt="Perfil" />
         </HeaderContainer>
     );
 }
@@ -15,9 +20,13 @@ const HeaderContainer=styled.header`
     justify-content: space-between;
     align-items: center;
     height: 70px;
+    width: 100%;
     background: #126BA5;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
     padding: 0 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
 
     a{
         font-family: 'Playball', cursive;

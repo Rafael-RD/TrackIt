@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { ThreeDots } from "react-loader-spinner";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
@@ -9,61 +9,74 @@ import { SetUserInfo } from "../../App";
 
 
 export default function LoginPage() {
-    const [loading, setLoading]=useState(false);
-    const [form, setForm]=useState({email:'', password:''});
-    const navigate=useNavigate();
-    const setUserInfo=useContext(SetUserInfo);
+    const [loading, setLoading] = useState(false);
+    const [form, setForm] = useState({ email: '', password: '' });
+    const navigate = useNavigate();
+    const setUserInfo = useContext(SetUserInfo);
 
-    function test(){
-        setForm({email:'raf@e-mail.com', password:'123'});
+    useEffect(() => {
+        if (localStorage.getItem('userInfo') !== null) {
+            console.log('entrou')
+            const { email, password } = JSON.parse(localStorage.getItem('userInfo'));
+            setForm({ email, password });
+        }
+    }, [])
+
+
+    function test() {
+        setForm({ email: 'raf@e-mail.com', password: '123' });
     }
 
 
-    function botaoEntrar(){
-        if(loading===false){
+    function botaoEntrar() {
+        if (loading === false) {
             return 'Entrar';
-        }else{
+        } else {
             return (<ThreeDots
-            height="80" 
-            width="80" 
-            radius="9"
-            color="#FFFFFF" 
-            ariaLabel="three-dots-loading"
-            wrapperStyle={{}}
-            wrapperClassName=""
-            visible={true}
+                height="80"
+                width="80"
+                radius="9"
+                color="#FFFFFF"
+                ariaLabel="three-dots-loading"
+                wrapperStyle={{}}
+                wrapperClassName=""
+                visible={true}
             />)
         }
     }
 
 
-    function changeHandler(e){
-        const {name, value}=e.target;
-        setForm({...form,[name]: value});
+    function changeHandler(e) {
+        const { name, value } = e.target;
+        setForm({ ...form, [name]: value });
     }
 
-    function submitHandler(e){
+    function submitHandler(e) {
         e.preventDefault();
+        submit();
+    }
+
+    function submit() {
         setLoading(true);
-        const url='https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login';
-        const body={
+        const url = 'https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login';
+        const body = {
             email: form.email,
             password: form.password
         }
         axios.post(url, body)
-        .then((resp)=>{
-            console.log('deu bom');
-            setUserInfo({...resp.data});
-            navigate('/hoje');
-        })
-        .catch(({response})=>{
-            console.log('deu ruim');
-            console.log(response);
-            alert(response.data.message);
-            setForm({...form, password: ''});
-            setLoading(false);
-        });
-
+            .then((resp) => {
+                console.log('deu bom');
+                setUserInfo({ ...resp.data });
+                localStorage.setItem('userInfo', JSON.stringify({ ...resp.data }));
+                navigate('/hoje');
+            })
+            .catch(({ response }) => {
+                console.log('deu ruim');
+                console.log(response);
+                alert(response.data.message);
+                setForm({ ...form, password: '' });
+                setLoading(false);
+            });
     }
 
 

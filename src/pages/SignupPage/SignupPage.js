@@ -61,13 +61,13 @@ export default function SignupPage(){
         <Signup>
             <img src={logo} alt="TrackIt logo" />
             <CustomForm onSubmit={submitHandler}>
-                <input disabled={loading} onChange={changeHandler} value={form.email} name='email' type="email" placeholder="email" required />
-                <input disabled={loading} onChange={changeHandler} value={form.password} name='password' type="password" placeholder="senha" required />
-                <input disabled={loading} onChange={changeHandler} value={form.name} name='name' type="text" placeholder="nome" required />
-                <input disabled={loading} onChange={changeHandler} value={form.image} name='image' type="url" placeholder="foto" required />
-                <button disabled={loading} >{botaoCadastrar()}</button>
+                <input data-test="email-input" disabled={loading} onChange={changeHandler} value={form.email} name='email' type="email" placeholder="email" required />
+                <input data-test="password-input" disabled={loading} onChange={changeHandler} value={form.password} name='password' type="password" placeholder="senha" required />
+                <input data-test="user-name-input" disabled={loading} onChange={changeHandler} value={form.name} name='name' type="text" placeholder="nome" required />
+                <input data-test="user-image-input" disabled={loading} onChange={changeHandler} value={form.image} name='image' type="url" placeholder="foto" required />
+                <button data-test="signup-btn" disabled={loading} >{botaoCadastrar()}</button>
             </CustomForm>
-            <Link to='/' >Já tem uma conta? Faça login!</Link>
+            <Link data-test="login-link" to='/' >Já tem uma conta? Faça login!</Link>
         </Signup>
     );
 }

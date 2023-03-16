@@ -84,11 +84,11 @@ export default function LoginPage() {
         <Login>
             <img onClick={test} src={logo} alt="TrackIt logo" />
             <CustomForm onSubmit={submitHandler}>
-                <input disabled={loading} onChange={changeHandler} value={form.email} name='email' type="email" placeholder="email" required />
-                <input disabled={loading} onChange={changeHandler} value={form.password} name='password' type="password" placeholder="senha" required />
-                <button disabled={loading} >{botaoEntrar()}</button>
+                <input data-test="email-input" disabled={loading} onChange={changeHandler} value={form.email} name='email' type="email" placeholder="email" required />
+                <input data-test="password-input" disabled={loading} onChange={changeHandler} value={form.password} name='password' type="password" placeholder="senha" required />
+                <button data-test="login-btn" disabled={loading} >{botaoEntrar()}</button>
             </CustomForm>
-            <Link to='/cadastro' >Não tem uma conta? Cadastre-se!</Link>
+            <Link data-test="signup-link" to='/cadastro' >Não tem uma conta? Cadastre-se!</Link>
         </Login>
     );
 }

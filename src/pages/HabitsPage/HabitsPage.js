@@ -104,6 +104,7 @@ const AddContainer = styled.div`
         color: #FFFFFF;
         width: 40px;
         height: 35px;
+        cursor: pointer;
     }
 `;
 

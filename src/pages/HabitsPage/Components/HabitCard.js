@@ -64,6 +64,7 @@ const WeekDay=styled.div`
     height: 30px;
     justify-content: center;
     align-items: center;
+    cursor: default;
     border: 1px solid ${props=>props.selected?'#CFCFCF':'#D5D5D5'};
     background-color: ${props=>props.selected?'#CFCFCF':'#FFFFFF'};
     color: ${props=>props.selected?'#FFFFFF':'#DBDBDB'};

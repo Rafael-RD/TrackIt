@@ -159,6 +159,7 @@ const CustomForm = styled.form`
         display: flex;
         align-items: center;
         justify-content: center;
+        cursor: pointer;
     }
     button:disabled{
         opacity: 0.7;

@@ -11,6 +11,7 @@ import { SetUserInfo } from "../../App";
 export default function LoginPage() {
     const [loading, setLoading] = useState(false);
     const [form, setForm] = useState({ email: '', password: '' });
+    const [autoLogin, setAutoLogin]=useState(false);
     const navigate = useNavigate();
     const setUserInfo = useContext(SetUserInfo);
 
@@ -19,8 +20,14 @@ export default function LoginPage() {
             console.log('entrou')
             const { email, password } = JSON.parse(localStorage.getItem('userInfo'));
             setForm({ email, password });
+            setAutoLogin(true);
         }
     }, [])
+    useEffect(()=>{
+        if(autoLogin===true){
+            submit();
+        }// eslint-disable-next-line
+    },[autoLogin]);
 
 
     function test() {
@@ -65,13 +72,13 @@ export default function LoginPage() {
         }
         axios.post(url, body)
             .then((resp) => {
-                console.log('deu bom');
+                console.log('bom login');
                 setUserInfo({ ...resp.data });
                 localStorage.setItem('userInfo', JSON.stringify({ ...resp.data }));
                 navigate('/hoje');
             })
             .catch(({ response }) => {
-                console.log('deu ruim');
+                console.log('ruim login');
                 console.log(response);
                 alert(response.data.message);
                 setForm({ ...form, password: '' });
@@ -97,6 +104,9 @@ const Login = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+    height: 100%;
+    width: 100%;
+    background-color: #FFFFFF;
 
     img{
         width: 180px;
@@ -112,7 +122,7 @@ const Login = styled.div`
         font-family: 'Lexend Deca', sans-serif;
     }
 
-    `
+`
 
 const CustomForm = styled.form`
     width: 300px;

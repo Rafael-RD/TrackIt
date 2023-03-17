@@ -13,5 +13,4 @@ export default function TodayPage(){
 }
 
 const Today=styled.div`
-    background-color: #F2F2F2;
 `;

@@ -5,12 +5,12 @@ import { UserInfo } from "../App";
 
 
 export default function Header(){
-    const userInfo=useContext(UserInfo);
+    const {image}=useContext(UserInfo);
 
     return(
         <HeaderContainer data-test="header" >
             <Link to='/' >TrackIt</Link>
-            <img src={userInfo.image} alt="Perfil" />
+            <img src={image} alt="Perfil" />
         </HeaderContainer>
     );
 }

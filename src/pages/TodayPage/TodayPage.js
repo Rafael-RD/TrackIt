@@ -92,17 +92,17 @@ export default function TodayPage() {
     }, [today, setFooterPercentage])
 
     function showTodayInfo() {
-        if (loading === true) return <TodayInfo highlighted={false} >Carregando!</TodayInfo>;
-        else if (Object.keys(today).length === 0) return <TodayInfo highlighted={false} >Você não tem nenhum hábito hoje,<br />Crie um na pagina Hábitos!</TodayInfo>;
-        else if(percent===0) return <TodayInfo highlighted={false} >Nenhum hábito concluido ainda</TodayInfo>;
-        else return <TodayInfo highlighted={true} >{`${percent}% dos hábitos concluídos`}</TodayInfo>;
+        if (loading === true) return <TodayInfo data-test="today-counter" highlighted={false} >Carregando!</TodayInfo>;
+        else if (Object.keys(today).length === 0) return <TodayInfo data-test="today-counter" highlighted={false} >Você não tem nenhum hábito hoje,<br />Crie um na pagina Hábitos!</TodayInfo>;
+        else if(percent===0) return <TodayInfo data-test="today-counter" highlighted={false} >Nenhum hábito concluido ainda</TodayInfo>;
+        else return <TodayInfo data-test="today-counter" highlighted={true} >{`${percent}% dos hábitos concluídos`}</TodayInfo>;
     }
 
     return (
         <Today>
             <Header />
             <MainContainer>
-                <div><Dia>{date}</Dia></div>
+                <div><Dia data-test="today">{date}</Dia></div>
                 <div>{showTodayInfo()}</div>
                 <Habitos>
                     {today.map((e, i) => <TodayCard key={i} toggleHabit={toggleHabit} item={e} />)}

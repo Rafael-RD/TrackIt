@@ -6,13 +6,13 @@ export default function TodayCard({ toggleHabit, item: { currentSequence, done, 
     const record = currentSequence >= highestSequence && highestSequence > 0;
 
     return (
-        <HabitCard>
+        <HabitCard data-test="today-habit-container" >
             <TextContainer>
-                <HabitName>{name}</HabitName>
-                <HabitInfo highlighted={false} >Sequência atual: <HabitInfo highlighted={done} >{`${currentSequence} dias`}</HabitInfo></HabitInfo>
-                <HabitInfo highlighted={false} >Seu recorde: <HabitInfo highlighted={record} >{`${highestSequence} dias`}</HabitInfo></HabitInfo>
+                <HabitName data-test="today-habit-name" >{name}</HabitName>
+                <HabitInfo data-test="today-habit-sequence" highlighted={false} >Sequência atual: <HabitInfo highlighted={done} >{`${currentSequence} dias`}</HabitInfo></HabitInfo>
+                <HabitInfo data-test="today-habit-record" highlighted={false} >Seu recorde: <HabitInfo highlighted={record} >{`${highestSequence} dias`}</HabitInfo></HabitInfo>
             </TextContainer>
-            <HabitButton highlighted={done} onClick={() => toggleHabit(done, id)} ><img src={vector} alt='Concluir hábito' /></HabitButton>
+            <HabitButton data-test="today-habit-check-btn" highlighted={done} onClick={() => toggleHabit(done, id)} ><img src={vector} alt='Concluir hábito' /></HabitButton>
         </HabitCard>
     )
 }

@@ -53,7 +53,7 @@ export default function HabitsPage() {
             <MainContainer>
                 <AddContainer>
                     <p>Meus hábitos</p>
-                    <button onClick={() => setShowCreation(true)} >+</button>
+                    <button data-test="habit-create-btn" onClick={() => setShowCreation(true)} >+</button>
                 </AddContainer>
                 <HabitsContainer>
                     <CreateHabit setShowCreation={setShowCreation} showCreation={showCreation} setReload={setReload} />

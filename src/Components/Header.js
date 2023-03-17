@@ -12,7 +12,7 @@ export default function Header(){
         if(image===undefined){
             navigate('/');
         }
-    },[])
+    },[image, navigate])
 
     return(
         <HeaderContainer data-test="header" >

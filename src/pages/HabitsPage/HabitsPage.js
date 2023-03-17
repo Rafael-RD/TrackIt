@@ -1,6 +1,5 @@
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { UserInfo } from "../../App";
 import Footer from "../../Components/Footer";
@@ -15,7 +14,6 @@ export default function HabitsPage() {
     const [loading, setLoading] = useState(true);
     const [showCreation, setShowCreation] = useState(false);
     const { token } = useContext(UserInfo);
-    const navigate=useNavigate();
 
     useEffect(() => {
         setLoading(true);
@@ -24,7 +22,7 @@ export default function HabitsPage() {
         axios.get(url, { headers: { Authorization: `Bearer ${token}` } })
             .then(resp => {
                 console.log('Habitos recebidos');
-                console.log(resp);
+                // console.log(resp);
                 setHabits(resp.data);
                 setLoading(false);
 

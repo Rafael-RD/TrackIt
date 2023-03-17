@@ -6,11 +6,18 @@ export default function TodayPage(){
     return(
         <Today>
             <Header />
-            
+            <MainContainer>
+
+            </MainContainer>
             <Footer />
         </Today>
     );
 }
 
 const Today=styled.div`
+    padding: 65px 0 80px 0;
+`;
+
+const MainContainer=styled.div`
+    
 `;

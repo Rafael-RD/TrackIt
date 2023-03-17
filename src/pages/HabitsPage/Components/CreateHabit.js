@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useContext, useState } from "react"
+import { ThreeDots } from "react-loader-spinner";
 import styled from "styled-components"
 import { UserInfo } from "../../../App";
 import { weekDays } from "../HabitsPage";
@@ -15,6 +16,23 @@ export default function CreateHabit({ setReload, showCreation, setShowCreation }
             setDays(days.filter((e)=>e!==day));
         }else{
             setDays([...days, day].sort((a,b)=>a-b));
+        }
+    }
+
+    function botaoSalvar() {
+        if (loading === false) {
+            return 'Salvar';
+        } else {
+            return (<ThreeDots
+                height="25"
+                width="80"
+                radius="9"
+                color="#FFFFFF"
+                ariaLabel="three-dots-loading"
+                wrapperStyle={{}}
+                wrapperClassName=""
+                visible={true}
+            />)
         }
     }
 
@@ -51,7 +69,7 @@ export default function CreateHabit({ setReload, showCreation, setShowCreation }
                 {weekDays.map((e,i)=><CustomButton data-test="habit-day" selected={days.includes(i)} key={i} onClick={()=>weekDaysClick(i)} disabled={loading} >{e}</CustomButton>)}
             </WeekDaysContainer>
             <ButtonsContainer>
-                <SaveButton data-test="habit-create-save-btn" disabled={loading} onClick={submitHandler} >Salvar</SaveButton>
+                <SaveButton data-test="habit-create-save-btn" disabled={loading} onClick={submitHandler} >{botaoSalvar()}</SaveButton>
                 <CancelButton data-test="habit-create-cancel-btn" disabled={loading} onClick={()=>setShowCreation(false)} >Cancelar</CancelButton>
             </ButtonsContainer>
         </CreateCard>
@@ -106,7 +124,7 @@ const CustomButton=styled.button`
     font-weight: 400;
     font-size: 20px;
     margin-right: 5px;
-    margin-bottom: 30px;
+    margin-bottom: 25px;
     background-color: ${props=>props.selected?'#CFCFCF':'#FFFFFF'};
     color: ${props=>props.selected?'#FFFFFF':'#DBDBDB'};
 `
@@ -126,6 +144,8 @@ const SaveButton=styled.button`
     font-size: 16px;
     text-align: center;
     color: #FFFFFF;
+    height: 40px;
+    width: 80px;
     cursor: pointer;
     margin-left: 20px;
     &:disabled{

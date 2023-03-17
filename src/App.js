@@ -10,24 +10,28 @@ import TodayPage from "./pages/TodayPage/TodayPage";
 
 export const UserInfo = createContext();
 export const SetUserInfo = createContext();
+export const FooterPercentageContext = createContext();
 
 
 export default function App() {
   const [user, setUser] = useState({});
+  const [footerPercentage, setFooterPercentage] = useState(0);
 
   return (
     <BrowserRouter>
       <UserInfo.Provider value={user} >
         <SetUserInfo.Provider value={setUser} >
-          <CustomBody>
-            <Routes>
-              <Route exact path="/" element={<LoginPage />} />
-              <Route exact path="/cadastro" element={<SignupPage />} />
-              <Route exact path="/habitos" element={<HabitsPage />} />
-              <Route exact path="/hoje" element={<TodayPage />} />
-              <Route exact path="/historico" element={<HistoryPage />} />
-            </Routes>
-          </CustomBody>
+          <FooterPercentageContext.Provider value={{ footerPercentage, setFooterPercentage }} >
+            <CustomBody>
+              <Routes>
+                <Route exact path="/" element={<LoginPage />} />
+                <Route exact path="/cadastro" element={<SignupPage />} />
+                <Route exact path="/habitos" element={<HabitsPage />} />
+                <Route exact path="/hoje" element={<TodayPage />} />
+                <Route exact path="/historico" element={<HistoryPage />} />
+              </Routes>
+            </CustomBody>
+          </FooterPercentageContext.Provider>
         </SetUserInfo.Provider>
       </UserInfo.Provider>
     </BrowserRouter>

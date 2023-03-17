@@ -1,12 +1,12 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import 'react-circular-progressbar/dist/styles.css';
 import { Link } from "react-router-dom";
 import styled from "styled-components"
+import { FooterPercentageContext } from "../App";
 
 export default function Footer() {
-    // eslint-disable-next-line
-    const [percentage, setPercentage] = useState(40);
+    const {footerPercentage: percentage}=useContext(FooterPercentageContext);
 
     function progressStyle() {
         return buildStyles({

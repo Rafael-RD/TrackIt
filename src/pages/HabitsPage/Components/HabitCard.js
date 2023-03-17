@@ -24,12 +24,12 @@ export default function HabitCard({setReload, name, id, days}){
     }
 
     return(
-        <Card>
-            <p>{name}</p>
+        <Card data-test="habit-container">
+            <p data-test="habit-name">{name}</p>
             <WeekDaysContainer>
-                {weekDays.map((e,i)=><WeekDay key={i} selected={days.includes(i)} >{e}</WeekDay>)}
+                {weekDays.map((e,i)=><WeekDay data-test="habit-day" key={i} selected={days.includes(i)} >{e}</WeekDay>)}
             </WeekDaysContainer>
-            <DeleteButton onClick={deleteHandler}><img src={trash} alt='Deletar' /></DeleteButton>
+            <DeleteButton data-test="habit-delete-btn" onClick={deleteHandler}><img src={trash} alt='Deletar' /></DeleteButton>
         </Card>
     )
 }

@@ -45,14 +45,14 @@ export default function CreateHabit({ setReload, showCreation, setShowCreation }
     }
 
     return(
-        <CreateCard show={showCreation} >
-            <input type='text' value={value} onChange={e=>setValue(e.target.value)} placeholder="Nome do Hábito" disabled={loading} />
+        <CreateCard data-test="habit-create-container" show={showCreation} >
+            <input data-test="habit-name-input" type='text' value={value} onChange={e=>setValue(e.target.value)} placeholder="Nome do Hábito" disabled={loading} />
             <WeekDaysContainer>
-                {weekDays.map((e,i)=><CustomButton selected={days.includes(i)} key={i} onClick={()=>weekDaysClick(i)} disabled={loading} >{e}</CustomButton>)}
+                {weekDays.map((e,i)=><CustomButton data-test="habit-day" selected={days.includes(i)} key={i} onClick={()=>weekDaysClick(i)} disabled={loading} >{e}</CustomButton>)}
             </WeekDaysContainer>
             <ButtonsContainer>
-                <SaveButton disabled={loading} onClick={submitHandler} >Salvar</SaveButton>
-                <CancelButton disabled={loading} onClick={()=>setShowCreation(false)} >Cancelar</CancelButton>
+                <SaveButton data-test="habit-create-save-btn" disabled={loading} onClick={submitHandler} >Salvar</SaveButton>
+                <CancelButton data-test="habit-create-cancel-btn" disabled={loading} onClick={()=>setShowCreation(false)} >Cancelar</CancelButton>
             </ButtonsContainer>
         </CreateCard>
     )

@@ -103,7 +103,7 @@ const Login = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 100%;
+    height: 100vh;
     width: 100%;
     background-color: #FFFFFF;
 

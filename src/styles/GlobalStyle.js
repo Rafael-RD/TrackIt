@@ -8,6 +8,11 @@ const GlobalStyle = createGlobalStyle`
     font-weight: 400;
 }
 
+html{
+    width: 100vw;
+    overflow-x: hidden;
+}
+
 `;
 
 export default GlobalStyle;

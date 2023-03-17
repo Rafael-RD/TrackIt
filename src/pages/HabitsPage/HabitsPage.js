@@ -5,32 +5,44 @@ import { UserInfo } from "../../App";
 import Footer from "../../Components/Footer";
 import Header from "../../Components/Header";
 import CreateHabit from "./Components/CreateHabit";
+import HabitCard from "./Components/HabitCard";
+export const weekDays=['D', 'S', 'T', 'Q', 'Q', 'S', 'S'];
 
 export default function HabitsPage() {
     const [habits, setHabits] = useState({});
-    const [reload, setReload]=useState(false);
-    const [showCreation, setShowCreation]=useState(false);
-    const {token}=useContext(UserInfo);
+    const [reload, setReload] = useState(false);
+    const [loading, setLoading] = useState(true);
+    const [showCreation, setShowCreation] = useState(false);
+    const { token } = useContext(UserInfo);
 
-    useEffect(()=>{
-        const url='https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits';
-        axios.get(url, {headers:{Authorization: `Bearer ${token}`}})
-        .then(resp=>{
-            console.log('Habitos recebidos');
-            console.log(resp);
-            setHabits(resp.data);
-        })
-        .catch(resp=>{
-            console.log('erro habitos')
-            console.log(resp)
-        })
-    },[token])
+    useEffect(() => {
+        setLoading(true);
+        setReload(false);
+        const url = 'https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits';
+        axios.get(url, { headers: { Authorization: `Bearer ${token}` } })
+            .then(resp => {
+                console.log('Habitos recebidos');
+                console.log(resp);
+                setHabits(resp.data);
+                setLoading(false);
+
+            })
+            .catch(resp => {
+                console.log('erro habitos')
+                console.log(resp)
+                setLoading(false);
+            })
+    }, [token, reload])
 
     function showHabits() {
-        if (Object.keys(habits).length === 0) {
+        if (loading === true) {
+            return <p>Carregando!</p>
+        } else if (Object.keys(habits).length === 0) {
             return <p>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</p>;
         } else {
-            return;
+            return (
+                habits.map((e,i)=><HabitCard key={e.id} setReload={setReload} name={e.name} id={e.id} days={e.days} />)
+            )
         }
     }
 
@@ -41,7 +53,7 @@ export default function HabitsPage() {
             <MainContainer>
                 <AddContainer>
                     <p>Meus hábitos</p>
-                    <button onClick={()=>setShowCreation(true)} >+</button>
+                    <button onClick={() => setShowCreation(true)} >+</button>
                 </AddContainer>
                 <HabitsContainer>
                     <CreateHabit setShowCreation={setShowCreation} showCreation={showCreation} setReload={setReload} />
@@ -54,7 +66,7 @@ export default function HabitsPage() {
 }
 
 const Habits = styled.div`
-    padding: 70px 0;
+    padding: 65px 0 80px 0;
 `;
 
 const MainContainer = styled.div`

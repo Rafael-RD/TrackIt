@@ -17,7 +17,6 @@ export default function LoginPage() {
 
     useEffect(() => {
         if (localStorage.getItem('userInfo') !== null) {
-            console.log('entrou')
             const { email, password } = JSON.parse(localStorage.getItem('userInfo'));
             setForm({ email, password });
             setAutoLogin(true);

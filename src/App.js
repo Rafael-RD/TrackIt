@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import styled from "styled-components";
 import HabitsPage from "./pages/HabitsPage/HabitsPage";
@@ -41,7 +41,8 @@ font-family: 'Playball', cursive;
 */
 
 const CustomBody = styled.div`
-  height: 100vh;
-  width: 100vw;
+  min-height: 100vh;
+  height: fit-content;
+  width: 100%;
   background-color: #f2f2f2;
 `

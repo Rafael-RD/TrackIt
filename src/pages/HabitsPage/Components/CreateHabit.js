@@ -2,8 +2,7 @@ import axios from "axios";
 import { useContext, useState } from "react"
 import styled from "styled-components"
 import { UserInfo } from "../../../App";
-
-const weekDays=['D', 'S', 'T', 'Q', 'Q', 'S', 'S'];
+import { weekDays } from "../HabitsPage";
 
 export default function CreateHabit({ setReload, showCreation, setShowCreation }){
     const [days, setDays]=useState([]);
@@ -27,7 +26,7 @@ export default function CreateHabit({ setReload, showCreation, setShowCreation }
             axios.post(url,body,{headers: {Authorization: `Bearer ${token}`}})
             .then(resp=>{
                 console.log('habit criado');
-                console.log(resp);
+                // console.log(resp);
                 setShowCreation(false);
                 setReload(true);
                 setDays([]);
@@ -66,6 +65,7 @@ const CreateCard=styled.div`
     width: 100%;
     height: 180px;
     padding: 20px;
+    margin-bottom: 10px;
 
     input{
         width: 100%;

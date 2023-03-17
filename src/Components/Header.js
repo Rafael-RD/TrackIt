@@ -1,11 +1,18 @@
-import { useContext } from "react";
-import { Link } from "react-router-dom";
+import { useContext, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { UserInfo } from "../App";
 
 
 export default function Header(){
     const {image}=useContext(UserInfo);
+    const navigate=useNavigate();
+
+    useEffect(()=>{
+        if(image===undefined){
+            navigate('/');
+        }
+    },[])
 
     return(
         <HeaderContainer data-test="header" >

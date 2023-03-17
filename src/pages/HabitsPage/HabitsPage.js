@@ -33,9 +33,6 @@ export default function HabitsPage() {
                 console.log('erro habitos')
                 console.log(resp)
                 setLoading(false);
-                if(resp.response.status===401){
-                    navigate('/');
-                }
             })
     }, [token, reload])
 

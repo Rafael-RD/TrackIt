@@ -1,11 +1,12 @@
 import { useContext, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { UserInfo } from "../App";
+import { SetUserInfo, UserInfo } from "../App";
 
 
 export default function Header(){
     const {image}=useContext(UserInfo);
+    const setUserInfo=useContext(SetUserInfo);
     const navigate=useNavigate();
 
     useEffect(()=>{
@@ -14,9 +15,16 @@ export default function Header(){
         }
     },[image, navigate])
 
+    function logout(){
+        localStorage.clear();
+        setUserInfo({});
+        navigate('/');
+    }
+
     return(
         <HeaderContainer data-test="header" >
             <Link to='/' >TrackIt</Link>
+            <button onClick={logout} >Logout</button>
             <img src={image} alt="Perfil" />
         </HeaderContainer>
     );
@@ -40,6 +48,18 @@ const HeaderContainer=styled.header`
         font-size: 40px;
         color: white;
         text-decoration: none;
+    }
+
+    button{
+        border: none;
+        background-color: rgba(255, 255, 255, 0.2);
+        border-radius: 5px;
+        padding: 10px;
+        font-family: 'Lexend Deca', sans-serif;
+        font-weight: 400;
+        font-size: 16px;
+        color: #444444;
+        cursor: pointer;
     }
 
     img{

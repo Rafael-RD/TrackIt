@@ -25,16 +25,15 @@ export default function TodayPage() {
             axios.get(url, { headers: { Authorization: `Bearer ${token}` } })
                 .then(resp => {
                     console.log('today sucesso');
-                    // console.log(resp);
                     setToday(resp.data);
                     setLoading(false);
                 })
                 .catch(resp => {
                     console.log('today falha');
                     console.log(resp);
+                    setLoading(false);
                 })
         }
-        setLoading(false);
         setReload(false);
     }, [token, reload])
 

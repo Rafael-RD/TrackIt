@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import styled from "styled-components";
 import HabitsPage from "./pages/HabitsPage/HabitsPage";
@@ -16,6 +16,17 @@ export const FooterPercentageContext = createContext();
 export default function App() {
   const [user, setUser] = useState({});
   const [footerPercentage, setFooterPercentage] = useState(0);
+
+  useEffect(()=>{
+    const localUser=JSON.parse(localStorage.getItem('userInfo'));
+    if (localUser !== null) {
+      setUser(localUser);
+    }
+  },[])
+
+  useEffect(()=>{
+    console.log(user);
+  },[user])
 
   return (
     <BrowserRouter>

@@ -4,29 +4,36 @@ import { ThreeDots } from "react-loader-spinner";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import logo from '../../assets/logo.svg';
-import { SetUserInfo } from "../../App";
+import { SetUserInfo, UserInfo } from "../../App";
 
 
 
 export default function LoginPage() {
     const [loading, setLoading] = useState(false);
     const [form, setForm] = useState({ email: '', password: '' });
-    const [autoLogin, setAutoLogin]=useState(false);
+    // const [autoLogin, setAutoLogin]=useState(false);
     const navigate = useNavigate();
+    const userInfo=useContext(UserInfo);
     const setUserInfo = useContext(SetUserInfo);
 
-    useEffect(() => {
-        if (localStorage.getItem('userInfo') !== null) {
-            const { email, password } = JSON.parse(localStorage.getItem('userInfo'));
-            setForm({ email, password });
-            setAutoLogin(true);
-        }
-    }, [])
     useEffect(()=>{
-        if(autoLogin===true){
-            submit();
-        }// eslint-disable-next-line
-    },[autoLogin]);
+        if(Object.keys(userInfo).length!==0){
+            navigate('/hoje')
+        }
+    },[navigate, userInfo])
+        
+    // useEffect(() => {
+    //     if (localStorage.getItem('userInfo') !== null) {
+    //         const { email, password } = JSON.parse(localStorage.getItem('userInfo'));
+    //         setForm({ email, password });
+    //         setAutoLogin(true);
+    //     }
+    // }, [])
+    // useEffect(()=>{
+    //     if(autoLogin===true){
+    //         submit();
+    //     }// eslint-disable-next-line
+    // },[autoLogin]);
 
 
     function test() {

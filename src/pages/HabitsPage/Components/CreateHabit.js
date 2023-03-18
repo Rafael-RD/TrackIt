@@ -9,7 +9,7 @@ export default function CreateHabit({ setReload, showCreation, setShowCreation }
     const [days, setDays]=useState([]);
     const [value, setValue]=useState('');
     const [loading, setLoading]=useState(false);
-    const {token}=useContext(UserInfo);
+    const {user:{token}}=useContext(UserInfo);
 
     function weekDaysClick(day){
         if(days.includes(day)){

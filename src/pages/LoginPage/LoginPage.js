@@ -4,17 +4,15 @@ import { ThreeDots } from "react-loader-spinner";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import logo from '../../assets/logo.svg';
-import { SetUserInfo, UserInfo } from "../../App";
+import { UserInfo } from "../../App";
 
 
 
 export default function LoginPage() {
     const [loading, setLoading] = useState(false);
     const [form, setForm] = useState({ email: '', password: '' });
-    // const [autoLogin, setAutoLogin]=useState(false);
     const navigate = useNavigate();
-    const userInfo=useContext(UserInfo);
-    const setUserInfo = useContext(SetUserInfo);
+    const {user:userInfo, setUser:setUserInfo}=useContext(UserInfo);
 
     useEffect(()=>{
         if(Object.keys(userInfo).length!==0){
@@ -22,20 +20,6 @@ export default function LoginPage() {
         }
     },[navigate, userInfo])
         
-    // useEffect(() => {
-    //     if (localStorage.getItem('userInfo') !== null) {
-    //         const { email, password } = JSON.parse(localStorage.getItem('userInfo'));
-    //         setForm({ email, password });
-    //         setAutoLogin(true);
-    //     }
-    // }, [])
-    // useEffect(()=>{
-    //     if(autoLogin===true){
-    //         submit();
-    //     }// eslint-disable-next-line
-    // },[autoLogin]);
-
-
     function test() {
         setForm({ email: 'raf@e-mail.com', password: '123' });
     }

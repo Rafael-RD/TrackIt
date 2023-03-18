@@ -15,7 +15,7 @@ export default function TodayPage() {
     const [loading, setLoading] = useState(true);
     const [reload, setReload] = useState(false);
     const [percent, setPercent] = useState(0);
-    const { token } = useContext(UserInfo);
+    const { user:{token} } = useContext(UserInfo);
     const {setFooterPercentage}=useContext(FooterPercentageContext);
 
     useEffect(() => {

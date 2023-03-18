@@ -1,19 +1,12 @@
 import { useContext, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { SetUserInfo, UserInfo } from "../App";
+import { UserInfo } from "../App";
 
 
 export default function Header(){
-    const {image}=useContext(UserInfo);
-    const setUserInfo=useContext(SetUserInfo);
+    const {user:{image}, setUser:setUserInfo}=useContext(UserInfo);
     const navigate=useNavigate();
-
-    useEffect(()=>{
-        if(image===undefined){
-            navigate('/');
-        }
-    },[image, navigate])
 
     function logout(){
         localStorage.clear();

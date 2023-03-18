@@ -13,7 +13,7 @@ export default function HabitsPage() {
     const [reload, setReload] = useState(false);
     const [loading, setLoading] = useState(true);
     const [showCreation, setShowCreation] = useState(false);
-    const { token } = useContext(UserInfo);
+    const { user:{token} } = useContext(UserInfo);
 
     useEffect(() => {
         setLoading(true);

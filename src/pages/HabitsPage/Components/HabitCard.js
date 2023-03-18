@@ -6,7 +6,7 @@ import { useContext } from "react";
 import { UserInfo } from "../../../App";
 
 export default function HabitCard({setReload, name, id, days}){
-    const {token}=useContext(UserInfo);
+    const {user:{token}}=useContext(UserInfo);
 
     function deleteHandler(){
         if(window.confirm('Deseja realmente deletar este habito?')===true){

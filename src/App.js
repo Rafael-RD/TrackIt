@@ -9,7 +9,6 @@ import TodayPage from "./pages/TodayPage/TodayPage";
 
 
 export const UserInfo = createContext();
-export const SetUserInfo = createContext();
 export const FooterPercentageContext = createContext();
 
 
@@ -24,14 +23,9 @@ export default function App() {
     }
   },[])
 
-  useEffect(()=>{
-    console.log(user);
-  },[user])
-
   return (
     <BrowserRouter>
-      <UserInfo.Provider value={user} >
-        <SetUserInfo.Provider value={setUser} >
+      <UserInfo.Provider value={{user, setUser}} >
           <FooterPercentageContext.Provider value={{ footerPercentage, setFooterPercentage }} >
             <CustomBody>
               <Routes>
@@ -43,7 +37,6 @@ export default function App() {
               </Routes>
             </CustomBody>
           </FooterPercentageContext.Provider>
-        </SetUserInfo.Provider>
       </UserInfo.Provider>
     </BrowserRouter>
   );

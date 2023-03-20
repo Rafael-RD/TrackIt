@@ -19,7 +19,8 @@ export default function LoginPage() {
             navigate('/hoje')
         }
     },[navigate, userInfo])
-        
+
+    //sim, fiquei com preguiça de ficar recolocando os dados no login, me julgue.
     function test() {
         setForm({ email: 'raf@e-mail.com', password: '123' });
     }

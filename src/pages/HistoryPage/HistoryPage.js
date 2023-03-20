@@ -7,9 +7,11 @@ import dayjs from "dayjs";
 import { useContext, useEffect, useState } from "react";
 import { UserInfo } from "../../App";
 import axios from "axios";
+import HistoryHabitCard from "./Components/HistoryHabitCard";
 
 export default function HistoryPage() {
-    const [habits, setHabits]=useState([]);
+    const [allHabits, setAllHabits]=useState([]);
+    const [dayHabits, setDayHabits]=useState([]);
     const {user:{token}}=useContext(UserInfo);
 
     useEffect(()=>{
@@ -19,7 +21,7 @@ export default function HistoryPage() {
             .then(resp=>{
                 console.log('history sucesso');
                 console.log(resp.data);
-                setHabits(resp.data);
+                setAllHabits(resp.data);
             })
             .catch(resp=>{
                 console.log('history falha');
@@ -31,22 +33,37 @@ export default function HistoryPage() {
     function formatDay(locale, date){
         const formatedDate=dayjs(date).format('DD/MM/YYYY');
         const incompletos='#EA5766', completos='#8CC654', nenhum='initial';
-        for(const day of habits){
+        for(const day of allHabits){
             if(day.day===formatedDate){
-                if(day.habits.some(e=>e.done===false)) return <CalendarDayBlock background={incompletos} >{dayjs(date).format('DD')}</CalendarDayBlock>;
-                else return <CalendarDayBlock background={completos} >{dayjs(date).format('DD')}</CalendarDayBlock>;
+                if(day.habits.some(e=>e.done===false)) return <CalendarDayBlock background={incompletos} cor={'#000000'} >{dayjs(date).format('DD')}</CalendarDayBlock>;
+                else return <CalendarDayBlock background={completos} cor={'#000000'} >{dayjs(date).format('DD')}</CalendarDayBlock>;
             }
         }
         return <CalendarDayBlock background={nenhum}>{dayjs(date).format('DD')}</CalendarDayBlock>;
     }
 
+    function clickDay(value, event){
+        const formatedDate=dayjs(value).format('DD/MM/YYYY');
+        console.log(formatedDate);
+        for(const day of allHabits){
+            if(day.day===formatedDate){
+                console.log(day.habits);
+                setDayHabits(day.habits);
+                return null;
+            }
+        }
+        setDayHabits([]);
+    }
 
     return (
         <History>
             <Header />
             <MainContainer><CustomTittle>Meu Histórico</CustomTittle></MainContainer>
             <MainContainer><CustomText>Em breve você poderá ver o histórico dos seus hábitos aqui!</CustomText></MainContainer>
-            <Calendar locale="pt-br" calendarType="US" formatDay ={formatDay} />
+            <Calendar locale="pt-br" calendarType="US" formatDay ={formatDay} onClickDay={clickDay} />
+            <Habitos>
+                {dayHabits.map((e,i)=><HistoryHabitCard key={i} item={e} />)}
+            </Habitos>
             <Footer />
         </History>
     );
@@ -84,6 +101,7 @@ const CustomText = styled.span`
 `
 
 const CalendarDayBlock=styled.div`
+    color: ${props=>props.cor!==null?props.cor:'initial'};
     background-color: ${props=>props.background};
     display: flex;
     align-items: center;
@@ -91,6 +109,11 @@ const CalendarDayBlock=styled.div`
     border-radius: 100%;
     height: 30px;
     width: 30px;
-    position: relative;
-    left: 0.3vw;
+`
+
+const Habitos = styled.div`
+    display:flex;
+    flex-direction: column;
+    width: 90%;
+    max-width: 500px;
 `
